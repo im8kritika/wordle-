@@ -6,7 +6,8 @@ const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 const babel = require('gulp-babel');
 const terser = require('gulp-terser');
-const browsersync = require('browser-sync').create();
+const browsersync = require('browser-sync');
+
 
 // sass.compiler =require('dart-sass');
 
@@ -28,7 +29,7 @@ function jsTask() {
 
 // Browsersync
 function browserSyncServe(cb) {
-	browsersync.init({
+	browsersync.create().init({
 		server: {
 			baseDir: '.',
 		},
@@ -38,6 +39,13 @@ function browserSyncServe(cb) {
 				bottom: '0',
 			},
 		},
+	});
+	gulp.task('webserver', function() {
+	    browserSync({
+	        server: {
+	            baseDir: "https://im8kritika.github.io/wordle-/"
+	        }
+	    });
 	});
 	cb();
 }
@@ -59,13 +67,3 @@ function watchTask() {
 exports.default = series(scssTask, jsTask, browserSyncServe, watchTask);
 
 exports.build = series(scssTask, jsTask);
-
-var browserSync = require('browser-sync');
-
-gulp.task('webserver', function() {
-    browserSync({
-        server: {
-            baseDir: "https://im8kritika.github.io/wordle-/"
-        }
-    });
-});
