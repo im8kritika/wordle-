@@ -68,7 +68,7 @@ exports.default = series(scssTask, jsTask, browserSyncServe, watchTask);
 
 exports.build = series(scssTask, jsTask);
 
-const relative = require('./tasks/document-relative');
+const relative = require('./document-relative');
 gulp.task('relative-urls', function() {
     return gulp.src('build/**/*.html')
         .pipe( relative({
